@@ -1,0 +1,26 @@
+[
+	{
+		"dir":"../merchandise_services", 
+		"command":"service all restart", 
+		"kill": "service all stop", 
+		"log":"../merchandise_services/tmp/merchandise-platform.log"
+	},
+	{
+		"dir":"../geco_integration", 
+		"command":"service all restart", 
+		"kill": "service all stop", 
+		"log" : "../geco_integration/tmp/geco-integration.log"
+	},
+	{
+		"dir":"../infrastructure/cas", 
+		"command":"stop_services.sh && sh start_services.sh", 
+		"kill": "stop_services.sh", 
+		"log":"../infrastructure/cas/tmp/cas.log"
+	},
+	{
+		"dir":"../authorization_service", 
+		"command":"stop_services.sh && sh start_services.sh","kill": 
+		"stop_services.sh", 
+		"log" : "../authorization_service/tmp/authorization-service.log"
+	}
+]
