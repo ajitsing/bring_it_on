@@ -3,24 +3,28 @@
 		"dir":"../merchandise_services", 
 		"command":"service all restart", 
 		"kill": "service all stop", 
-		"log":"../merchandise_services/tmp/merchandise-platform.log"
+		"log":"../merchandise_services/tmp/merchandise-platform.log",
+		"alias" : "MERCH"
 	},
 	{
 		"dir":"../geco_integration", 
 		"command":"service all restart", 
 		"kill": "service all stop", 
-		"log" : "../geco_integration/tmp/geco-integration.log"
+		"log" : "../geco_integration/tmp/geco-integration.log",
+		"alias" : "GECO"
 	},
 	{
 		"dir":"../infrastructure/cas", 
 		"command":"stop_services.sh && sh start_services.sh", 
 		"kill": "stop_services.sh", 
-		"log":"../infrastructure/cas/tmp/cas.log"
+		"log":"../infrastructure/cas/tmp/cas.log",
+		"alias" : "CAS"
 	},
 	{
 		"dir":"../authorization_service", 
 		"command":"stop_services.sh && sh start_services.sh","kill": 
 		"stop_services.sh", 
-		"log" : "../authorization_service/tmp/authorization-service.log"
+		"log" : "../authorization_service/tmp/authorization-service.log",
+		"alias" : "AUTH"
 	}
 ]

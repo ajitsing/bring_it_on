@@ -3,6 +3,7 @@ var Tail = require('tail').Tail;
 var fs = require('fs');
 
 require('colors');
+var color = ['yellow', 'cyan', 'magenta', 'red', 'green', 'blue']
 
 var configuration =  fs.readFileSync('./config.json', 'utf8');
 var services = JSON.parse(configuration);
@@ -26,19 +27,23 @@ var runService = function(service){
 	executeCommand(command);
 };
 
+var randomColor = function(){
+	Array.prototype.random = function (length) {
+	  return this[Math.floor((Math.random()*length))];
+	}
+
+	return color.pop(color.random(color.length))
+}
+
 services.forEach(function(service){
 	runService(service);
-});
+	var logs = new Tail(service.log);
+	service.logColor = randomColor();
 
-merchLogs = new Tail("../merchandise_services/tmp/merchandise-platform.log");
-gecoLogs = new Tail("../geco_integration/tmp/geco-integration.log");
-
-merchLogs.on("line", function(data) {
-  console.log('MERCH| '.green + data);
-});
-
-gecoLogs.on("line", function(data){
-  console.log('GECO | '.red + data);
+	logs.on("line", function(data) {
+	  serviceLog = service.alias + ' |';
+	  console.log(serviceLog[service.logColor] + data);
+	});
 });
 
 process.on('SIGINT', function () {
