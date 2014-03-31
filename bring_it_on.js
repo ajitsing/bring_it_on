@@ -5,8 +5,20 @@ var fs = require('fs');
 require('colors');
 var color = ['yellow', 'cyan', 'magenta', 'red', 'green', 'blue']
 
-var configuration =  fs.readFileSync('./config.json', 'utf8');
-var services = JSON.parse(configuration);
+var servicesToStart = function(){
+	var serviceToStart = process.argv;
+	var configuration =  fs.readFileSync(serviceToStart[2], 'utf8');
+	var allServices = JSON.parse(configuration);
+
+	var filteredServices = allServices.filter(function(s){
+		return serviceToStart.indexOf(s.alias.toLowerCase()) > -1;
+	});
+
+	return filteredServices.length == 0 ? allServices : filteredServices;
+}
+
+
+var services = servicesToStart();
 
 var executeCommand = function(command){
 	exec(command , function(err, stdout, stderr){
@@ -18,7 +30,7 @@ var executeCommand = function(command){
 
 var killService = function(service){
 	command = 'cd _FOLDER_ && sh _COMMAND_'.replace(/_FOLDER_/, service.dir).replace(/_COMMAND_/,service.kill);
-	console.log('Killing service - '.red + service.dir);
+	console.log('Killing service - '.red + service.alias.toUpperCase());
 	executeCommand(command);
 };
 
@@ -41,7 +53,7 @@ services.forEach(function(service){
 	service.logColor = randomColor();
 
 	logs.on("line", function(data) {
-	  serviceLog = service.alias + ' |';
+	  serviceLog = service.alias.toUpperCase() + ' |';
 	  console.log(serviceLog[service.logColor] + data);
 	});
 });

@@ -1,30 +1,30 @@
 [
 	{
-		"dir":"../merchandise_services", 
+		"dir":"/Users/ajitsingh/projects/PAM/merchandise_services", 
 		"command":"service all restart", 
 		"kill": "service all stop", 
-		"log":"../merchandise_services/tmp/merchandise-platform.log",
-		"alias" : "MERCH"
+		"log":"/Users/ajitsingh/projects/PAM/merchandise_services/tmp/merchandise-platform.log",
+		"alias" : "merch"
 	},
 	{
-		"dir":"../geco_integration", 
+		"dir":"/Users/ajitsingh/projects/PAM/geco_integration", 
 		"command":"service all restart", 
 		"kill": "service all stop", 
-		"log" : "../geco_integration/tmp/geco-integration.log",
-		"alias" : "GECO"
+		"log" : "/Users/ajitsingh/projects/PAM/geco_integration/tmp/geco-integration.log",
+		"alias" : "geco"
 	},
 	{
-		"dir":"../infrastructure/cas", 
+		"dir":"/Users/ajitsingh/projects/PAM/infrastructure/cas", 
 		"command":"stop_services.sh && sh start_services.sh", 
 		"kill": "stop_services.sh", 
-		"log":"../infrastructure/cas/tmp/cas.log",
-		"alias" : "CAS"
+		"log":"/Users/ajitsingh/projects/PAM/infrastructure/cas/tmp/cas.log",
+		"alias" : "cas"
 	},
 	{
-		"dir":"../authorization_service", 
+		"dir":"/Users/ajitsingh/projects/PAM/authorization_service", 
 		"command":"stop_services.sh && sh start_services.sh","kill": 
 		"stop_services.sh", 
-		"log" : "../authorization_service/tmp/authorization-service.log",
-		"alias" : "AUTH"
+		"log" : "/Users/ajitsingh/projects/PAM/authorization_service/tmp/authorization-service.log",
+		"alias" : "auth"
 	}
 ]
