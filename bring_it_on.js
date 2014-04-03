@@ -3,16 +3,28 @@ var Tail = require('tail').Tail;
 var fs = require('fs');
 
 require('colors');
-var color = ['yellow', 'cyan', 'magenta', 'red', 'green', 'blue']
+var color = ['yellow', 'cyan', 'magenta', 'red', 'green']
 
 var servicesToStart = function(){
 	var serviceToStart = process.argv;
 	var configuration =  fs.readFileSync(serviceToStart[2], 'utf8');
 	var allServices = JSON.parse(configuration);
 
-	var filteredServices = allServices.filter(function(s){
-		return serviceToStart.indexOf(s.alias.toLowerCase()) > -1;
+	var skipServices = serviceToStart.filter(function(s){
+		return s.indexOf('-') == 0;
 	});
+
+	var filteredServices = [];
+
+	if(skipServices.length){
+		filteredServices = allServices.filter(function(s){
+			return skipServices.indexOf('-'+s.alias.toLowerCase()) == -1;
+		});
+	}else{
+		filteredServices = allServices.filter(function(s){
+			return serviceToStart.indexOf(s.alias.toLowerCase()) > -1;
+		});
+	}
 
 	return filteredServices.length == 0 ? allServices : filteredServices;
 }
@@ -29,13 +41,13 @@ var executeCommand = function(command){
 };
 
 var killService = function(service){
-	command = 'cd _FOLDER_ && sh _COMMAND_'.replace(/_FOLDER_/, service.dir).replace(/_COMMAND_/,service.kill);
+	command = 'cd _FOLDER_ && _COMMAND_'.replace(/_FOLDER_/, service.dir).replace(/_COMMAND_/,service.kill);
 	console.log('Killing service - '.red + service.alias.toUpperCase());
 	executeCommand(command);
 };
 
 var runService = function(service){
-	command = 'cd _FOLDER_ && sh _COMMAND_'.replace(/_FOLDER_/, service.dir).replace(/_COMMAND_/,service.command);
+	command = 'cd _FOLDER_ && _COMMAND_'.replace(/_FOLDER_/, service.dir).replace(/_COMMAND_/,service.command);
 	executeCommand(command);
 };
 
