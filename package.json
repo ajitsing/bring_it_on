@@ -1,0 +1,12 @@
+{
+  "name": "bring_it_on",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node bring_it_on.js"
+  },
+  "dependencies": {
+    "tail": "*",
+    "colors": "*"
+  }
+}
